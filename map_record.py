@@ -98,7 +98,7 @@ class Maprecord(object):
             if self.srs != cutline_srs:
                 cutline = densify_linestring(cutline)
                 if cutline_srs == 'RAW':
-                    cutline = [self.gcp_transformer.get_point(x, y) for x, y in cutline]
+                    cutline = [self.gcp_transformer.transform(x, y) for x, y in cutline]
                 else:
                     proj_src = pyproj.Proj(cutline_srs)
                     proj_dst = pyproj.Proj(self.srs)
