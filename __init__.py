@@ -1,1 +1,1 @@
-from map_record import Maprecord
+from map_record import Maprecord, densify_linestring
