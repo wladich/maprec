@@ -10,7 +10,7 @@ import json
 
 
 def densify_linestring(points):
-    x, y = zip(*points)
+    x, y = list(zip(*points))
     max_range = min(max(x) - min(x), max(y) - min(y)) / 20
     result = []
     x0, y0 = points[0]
@@ -102,7 +102,7 @@ class Maprecord(object):
                 else:
                     proj_src = pyproj.Proj(cutline_srs)
                     proj_dst = pyproj.Proj(self.srs)
-                    cutline = zip(*pyproj.transform(proj_src, proj_dst, *zip(*cutline)))
+                    cutline = list(zip(*pyproj.transform(proj_src, proj_dst, *list(zip(*cutline)))))
             self._projected_cutline = cutline
         return self._projected_cutline
 
