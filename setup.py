@@ -7,4 +7,9 @@ setup(
     author='Sergey Orlov',
     author_email='wladimirych@gmail.com',
     packages=find_packages(),
+    install_requires=[
+        'pyproj',
+        'pyyaml',
+        'tps @ git+https://github.com/wladich/thinplatespline.git',
+    ],
 )
