@@ -160,7 +160,7 @@ class Maprecord(object):
             del data['image_path']
             data['image_size'] = os.path.getsize(self.image_path)
             data['image_mtime'] = os.path.getmtime(self.image_path)
-            data = json.dumps(data)
+            data = json.dumps(data).encode()
             self._fingerprint = hashlib.sha1(data).hexdigest()
         return self._fingerprint
 
