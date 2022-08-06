@@ -150,7 +150,7 @@ class Maprecord(object):
             image_path = os.path.relpath(image_path, os.path.dirname(filename))
         data['image_path'] = image_path
         s = yaml.dump(data, Dumper=yaml.CSafeDumper, indent=4, width=999)
-        with open(filename, 'wb') as f:
+        with open(filename, 'w', encoding='utf-8') as f:
             f.write(s)
 
     @property
