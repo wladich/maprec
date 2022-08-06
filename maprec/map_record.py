@@ -76,7 +76,8 @@ class Maprecord(object):
                 pixel = gcp['pixel']['x'], gcp['pixel']['y']
                 ground = gcp['ground']['x'], gcp['ground']['y']
                 if not gcp['is_projected']:
-                    ground = self.proj(*ground)
+                    ground = pyproj.transform(
+                        self.crs.geodetic_crs, self.crs, *ground, always_xy=True)
                 self._gcps.append({'ground': ground, 'pixel': pixel})
         return self._gcps
 
@@ -85,8 +86,8 @@ class Maprecord(object):
         return self.data['srs']
 
     @property
-    def proj(self):
-        return pyproj.Proj(self.srs)
+    def crs(self):
+        return pyproj.CRS(self.srs)
 
     @property
     def projected_cutline(self):
