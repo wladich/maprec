@@ -49,7 +49,8 @@ class Maprecord(object):
     @property
     def data(self):
         if self._data is None:
-            self._data = yaml.load(open(self._filename, 'rb'), Loader=yaml.CLoader)
+            with open(self._filename, 'rb') as f:
+                self._data = yaml.load(f, Loader=yaml.CLoader)
             self._check_data()
         return self._data
 
