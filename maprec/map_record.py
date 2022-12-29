@@ -70,6 +70,10 @@ class Maprecord(object):
             mask_path = os.path.abspath(os.path.join(base_dir, mask_path))
         return mask_path or None
 
+    @cached_property
+    def projector(self):
+        return pyproj.Proj(self.crs, always_xy=True)
+
     @property
     def gcps(self):
         if self._gcps is None:
@@ -78,8 +82,7 @@ class Maprecord(object):
                 pixel = gcp['pixel']['x'], gcp['pixel']['y']
                 ground = gcp['ground']['x'], gcp['ground']['y']
                 if not gcp['is_projected']:
-                    ground = pyproj.transform(
-                        self.crs.geodetic_crs, self.crs, *ground, always_xy=True)
+                    ground = self.projector(*ground)
                 self._gcps.append({'ground': ground, 'pixel': pixel})
         return self._gcps
 
