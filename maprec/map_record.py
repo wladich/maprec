@@ -7,6 +7,7 @@ from tps import TPS
 from copy import deepcopy
 import hashlib
 import json
+from functools import cached_property
 
 
 def densify_linestring(points):
@@ -86,7 +87,7 @@ class Maprecord(object):
     def srs(self):
         return self.data['srs']
 
-    @property
+    @cached_property
     def crs(self):
         return pyproj.CRS(self.srs)
 
